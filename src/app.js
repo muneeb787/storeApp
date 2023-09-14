@@ -11,4 +11,4 @@ app.use(express.urlencoded({ extended: true }));
 connectDB();
 app.listen(process.env.PROJECT_PORT || 3301, () => {
   console.log(`App is listening on port ${process.env.PROJECT_PORT}`);
-});
+})
