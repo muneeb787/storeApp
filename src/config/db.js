@@ -9,7 +9,7 @@ const connectDB = () => {
     }).then((res)=>{
         console.log("DB Connected Successfully")
     }).catch((err)=>{
-        console.log("DB Connection Error");
+        console.log("Alas! DB Connection Error");
     })
 }
 
