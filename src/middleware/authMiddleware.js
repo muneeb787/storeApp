@@ -15,11 +15,11 @@ const authMiddleware = (req, res, next) => {
       req.userID = user._id;
       res
         .status(EHttpStatusCode.SUCCESS)
-        .json({ message: "User Authorizated!" });
+        .json({ message: "User Authorized!" });
     } else {
       res
         .status(EHttpStatusCode.UNAUTHORIZED)
-        .json({ message: "Not Authorizated!" });
+        .json({ message: "Not Authorized!" });
     }
     next();
   } catch (error) {
