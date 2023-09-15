@@ -29,8 +29,6 @@ const UserController = {
   },
 
   getAll: async (req, res) => {
-    // const users = await userModel.find();
-    // return res.json(users);
     const { page = 1, limit = 5 } = req.query;
   
     try {
@@ -52,20 +50,13 @@ const UserController = {
     return res.json(user);
   },
 
-  signup: async (req, res) => {
+  create: async (req, res) => {
     const user=req.body;
     const Password= await bcryptjs.hash(user.password,12);
     user.password=Password
-    console.log(user.password);
-    if (user.role=="user")
-    {
     const User = await userModel.create(user);
     return res.json({ message: "User created successfully", User });
-    }
-    else{
-      const Admin=await userModel.create(user);
-      return res.json({message:"Admin created successfully", Admin});
-    }
+   
   },
 
   update: async (req, res) => {
