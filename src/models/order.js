@@ -14,17 +14,12 @@ const orderSchema = new mongoose.Schema(
           ref: "Product",
           required: true,
         },
-        product_name: {
-          type: String,
-          ref: "Product",
-          required: true,
-        },
         Order_Quantity: {
           type: Number,
           ref: "Product",
           required: true,
         },
-        product_price: {
+        total_price: {
           type: Number,
           required: true,
         },

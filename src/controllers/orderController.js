@@ -4,38 +4,12 @@ export const orderController = {
   createOrder: async (req, res) => {
     try {
       // Extract order data from request body
-      const {
-        userId,
-        products = [
-          {
-            productId,
-            product_name: productName,
-            Order_Quantity: quantity,
-            product_price: productPrice,
-          },
-        ],
-        transactionId,
-        totalPrice,
-        product_status,
-      } = req.body;
+      console.log(req.body)
+      const data = req.body;
       
       
       // create a new order
-      const new_order = await Order.create({
-        user_id: userId,
-        products: [
-          {
-            product_id: products[0].productId,
-            product_name: products[1].productName,
-            Order_Quantity: products[0].Order_Quantity,
-            product_price: products[0].price,
-          },
-          // Add more products as needed in a similar format
-        ],
-        transaction_id: transactionId,
-        totalPrice,
-        status: product_status,
-      });
+      const new_order = await Order.create(data);
       
       
       // send a response
