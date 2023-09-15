@@ -1,7 +1,6 @@
 import express from "express";
 import mainRouter from "./routes/index.js";
 import connectDB from "./config/db.js";
-import router from "../src/routes/index.js";
 import env from "dotenv";
 
 env.config();

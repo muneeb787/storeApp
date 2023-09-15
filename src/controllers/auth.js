@@ -1,9 +1,10 @@
 import EHttpStatusCode from "../enums/HttpStatusCode.js";
 import bycrypt from "bcrypt";
+import userModel from "../models/user.js";
 const jwt = require("jsonwebtoken");
 
-const authController = () => {
-  let refreshTokens = [];
+const refreshTokens = [];
+const authController = () => ({
   //Handler Function to Register
   Register: async (req, res) => {
     try {
@@ -26,7 +27,7 @@ const authController = () => {
         .status(EHttpStatusCode.INTERNAL_SERVER)
         .json({ message: "Internal Server Error!" });
     }
-  };
+  },
   //Handler Function to Login
   Login: async (req, res) => {
     try {
@@ -73,7 +74,7 @@ const authController = () => {
         .status(EHttpStatusCode.INTERNAL_SERVER)
         .json({ message: "Internal Server Error!" });
     }
-  };
+  },
   // Handler Function to Generate Refresh Tokens
   Token: (req, res) => {
     const { token } = req.body;
@@ -104,7 +105,7 @@ const authController = () => {
         accessToken,
       });
     });
-  };
+  },
   Logout: (req, res) => {
     const { token } = req.body;
     console.log(`Token Logout: ${token}`);
@@ -113,7 +114,7 @@ const authController = () => {
       message: "User Logged Out!",
       token,
     });
-  };
-};
+}
+})
 
 export default authController;
