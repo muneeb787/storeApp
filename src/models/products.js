@@ -19,6 +19,10 @@ const productSchema=new mongoose.Schema({
     },
     reviews:[
         {
+          user_id:{
+            type: mongoose.Schema.ObjectId,
+            ref:"user"
+          },
           comment_text: {
             type: "string",
             required: true,
@@ -33,8 +37,12 @@ const productSchema=new mongoose.Schema({
         {
           user_id:{
             type: mongoose.Schema.ObjectId,
-            default: 0,
             ref:"user"
+          },
+          points:{
+            type:"number",
+            default:1.0,
+            required:true
           },
           DateTime: {
             type: Date,
@@ -52,7 +60,7 @@ const productSchema=new mongoose.Schema({
     timestamps: true
 })
 
-const productModel = mongoose.model("", productSchema);
+const productModel = mongoose.model("Product", productSchema);
 
 export default productModel;
 

@@ -1,12 +1,11 @@
-import express from "express"
 
 import productModel from "../models/products.js"
 
-const productController= {
-    getall: async(req,res)=>{
-        const body=req.body;
-        const get = await Model.find()
-    if (get){
+const productController = {
+  getall: async (req, res) => {
+    const body = req.body;
+    const get = await Model.find()
+    if (get) {
       return res.json(get)
     } else {
       return res.status(404).json({ massage: "No data" })
@@ -24,7 +23,7 @@ const productController= {
   create: async (req, res) => {
     const body = req.body;
     const product = await productModel.create(body)
-    return res.json({ massege: "product Created" , products: product })
+    return res.json({ massege: "product Created", products: product })
   },
   update: async (req, res) => {
     const { id } = req.params;
