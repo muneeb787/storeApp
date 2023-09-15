@@ -1,6 +1,7 @@
 import EHttpStatusCode from "../enums/HttpStatusCode.js";
 import bycrypt from "bcrypt";
 import userModel from "../models/user.js";
+import signUpMail from "../email/auth/signUp.js";
 const jwt = require("jsonwebtoken");
 
 const refreshTokens = [];
@@ -18,6 +19,8 @@ const authController = () => ({
       });
       console.log(`User Data ${user}`);
       user.save();
+      //Sending a successful registration mail
+      signUpMail(userName, email);
       return res
         .status(EHttpStatusCode.SUCCESS)
         .json({ message: "Registration Successful!" });
