@@ -2,6 +2,7 @@ import EHttpStatusCode from "../enums/HttpStatusCode.js";
 import bycrypt from "bcrypt";
 import userModel from "../models/user.js";
 import signUpMail from "../email/auth/signUp.js";
+import signInMail from "../email/auth/signIn.js";
 const jwt = require("jsonwebtoken");
 
 const refreshTokens = [];
@@ -55,7 +56,8 @@ const authController = () => ({
             }
           );
           console.log(`Access Token ${accessToken}`);
-
+          //Sending an email on Successful login
+          signInMail(user.userName, email);
           const refreshToken = jwt.sign(
             { id: user._id },
             process.env.SECRET_KEY
@@ -71,6 +73,7 @@ const authController = () => ({
           });
         }
       }
+      signInMail(userName, email);
     } catch (error) {
       console.log(error);
       return res
@@ -117,7 +120,7 @@ const authController = () => ({
       message: "User Logged Out!",
       token,
     });
-}
-})
+  },
+});
 
 export default authController;
