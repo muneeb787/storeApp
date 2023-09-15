@@ -3,13 +3,14 @@ import Order from "../models/order";
 export const createOrder = async (req, res) => {
   try {
     // Extract order data from request body
-    const {userId, productId, quantity, totalPrice } = req.body;
+    const {userId, productId, quantity, totalPrice, transactionId } = req.body;
     // create a new order
     const new_order = await Order.create({
       user_id: userId,
       product_id: productId,
       product_Quantity: quantity,
       totalPrice: totalPrice,
+      transaction_id: transactionId,
     });
     // send a response
     res.status(201).json({ message: "Order Created Successfully.", new_order});
@@ -22,7 +23,7 @@ export const createOrder = async (req, res) => {
 export const updateOrder = async (req, res) => {
   try {
     const orderId = req.params.id;
-    const { userId, productId, quantity, totalPrice } = req.body;
+    const { userId, productId, quantity, totalPrice, transactionId } = req.body;
     const updatedOrder = await Order.findByIdAndUpdate(
       orderId,
       {
@@ -30,6 +31,7 @@ export const updateOrder = async (req, res) => {
         product_id: productId,
         product_Quantity: quantity,
         totalPrice: totalPrice,
+        transaction_id: transactionId,
       },
       { new: true }
     );
