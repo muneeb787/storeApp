@@ -5,14 +5,13 @@ env.config();
 
 import productRouter from "./routes/product.js";
 
-
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
 connectDB();
+app.use("/products", productRouter);
 
-app.use("/product",productRouter)
 app.listen(process.env.PROJECT_PORT || 3301, () => {
   console.log(`App is listening on port ${process.env.PROJECT_PORT}`);
 });
