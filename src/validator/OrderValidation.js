@@ -1,11 +1,31 @@
-import Joi from 'joi';
+import Joi from "joi";
+
 // defining a schema for validation
+export const orderValidator = {
+  create: async (req, res, next) => {
+    const schema = Joi.object({
+      user_id: Joi.string().length(24).hex().required(),
+      product_id: Joi.string().length(24).hex().required(),
+      transaction_id: Joi.string().required(),
+    });
+    const { error} = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+    next();
+  },
+  update: async (req, res, next) => {
+    const schema = Joi.object({
+      user_id: Joi.string().required(),
+      product_id: Joi.string().length(24).hex().required(),
+      transaction_id: Joi.string().required(),
+    });
+    const { error} = schema.validate(req.body);
+    if(error) {
+        return res.status(400).json({ message: error.details[0].message});
+    }
+    next();
+  },
+ 
 
-export const orderCreationValidation = Joi.object({
-    userId: Joi.string().required(),
-    productId: Joi.string().required(),
-    quantity: Joi.number().integer().min(1).required(),
-    totalPrice: Joi.number().min(0).required(),
-    transactionId: Joi.number().min(4).required(),
-});
-
+};
