@@ -1,5 +1,5 @@
 
-export default HttpStatusCode={
+const EHttpStatusCode={
     SUCCESS:200,
     CREATED:201,
     BAD_REQUEST:400,
@@ -9,3 +9,5 @@ export default HttpStatusCode={
     REQUEST_TIMEOUT:408,
     INTERNAL_SERVER:500
 }
+
+export default EHttpStatusCode

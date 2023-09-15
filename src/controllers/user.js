@@ -1,5 +1,6 @@
 import userModel from "../models/user.js";
 import bcryptjs from "bcryptjs";
+import EHttpStatusCode from "../enums/HttpStatusCode.js";
 
 const UserController = {
 
@@ -47,7 +48,7 @@ const UserController = {
     const { id } = req.params;
     const user = await userModel.findById(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "User not found" });
     }
     return res.json(user);
   },
