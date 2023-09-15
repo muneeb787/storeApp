@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const productSchema=new mongoose.Schema({
-    name: {
+    name:{
         type:"string",
         required: true
       },
@@ -17,7 +17,6 @@ const productSchema=new mongoose.Schema({
         type: "string",
         required: true,
     },
-
     reviews:[
         {
           comment_text: {
@@ -43,7 +42,11 @@ const productSchema=new mongoose.Schema({
           }
         }
     ],
-    catagory:[]
+    catagory_id:{
+        type: mongoose.Schema.ObjectId,
+        default: 0,
+        ref:"catagory"
+    },
 },
 {
     timestamps: true
