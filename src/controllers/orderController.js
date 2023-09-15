@@ -4,14 +4,12 @@ export const orderController = {
   createOrder: async (req, res) => {
     try {
       // Extract order data from request body
-      console.log(req.body)
+      console.log(req.body);
       const data = req.body;
-      
-      
+
       // create a new order
       const new_order = await Order.create(data);
-      
-      
+
       // send a response
       res
         .status(201)
@@ -25,39 +23,8 @@ export const orderController = {
   updateOrder: async (req, res) => {
     try {
       const orderId = req.params.id;
-      const {
-        userId,
-        products = [
-          {
-            product_id,
-            product_name,
-            Order_Quantity,
-            product_price,
-          },
-        ],
-        transactionId,
-        totalPrice,
-        product_status,
-      } = req.body;
-      
-      const updatedOrder = await Order.findByIdAndUpdate(
-        orderId,
-        {
-          user_id: userId,
-          products: [
-            {
-              product_id: productId,
-              product_name: productName,
-              Order_Quantity: quantity,
-              product_price: productPrice,
-            },
-          ],
-          transaction_id: transactionId,
-          totalPrice: totalPrice,
-          status: product_status,
-        },
-        { new: true }
-      );
+      const data = req.body;
+      const updatedOrder = await Order.findByIdAndUpdate(orderId, data, {new: true});
       if (!updatedOrder) {
         res.status(404).json({ message: "Order not Found" });
       }
