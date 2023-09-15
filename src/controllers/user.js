@@ -77,8 +77,11 @@ const UserController = {
     }
     user.name = body.name;
     user.email = body.email;
+    user.address.house=body.address.house;
     user.address.street=body.address.street;
     user.address.city=body.address.city;
+    user.address.country=user.address.country;
+    user.address.postal_code=user.address.postal_code;
     user.number=body.number;
     await user.save();
     return res.status(200).json({ message: "User Updated successfully", user });

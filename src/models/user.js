@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     address: {
+      house:{
+        type:"string",
+        required:true,
+      },
       street: {
         type: "string",
         required: true,
@@ -27,6 +31,14 @@ const userSchema = new mongoose.Schema(
         type: "string",
         required: true,
       },
+      country:{
+        type:"string",
+        required:true,
+      },
+      postal_code:{
+        type:"number",
+        required:true,
+      }
     },
     number: {
       type: "number",
