@@ -2,20 +2,19 @@ import EHttpStatusCode from "../enums/HttpStatusCode.js";
 import bycrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/user.js";
+import env from "dotenv";
 
 
 const refreshTokens = [];
-const authController = () => ({
+const authController = {
   //Handler Function to Register
   Register: async (req, res) => {
     try {
       const user = new userModel({
-        userName: req.body.name,
+        name: req.body.name,
         email: req.body.email,
         password: bycrypt.hashSync(req.body.password, 10),
-        role: req.body.role,
-        address: req.body.address,
-        phoneNumber: req.body.phoneNumber,
+
       });
       console.log(`User Data ${user}`);
       user.save();
@@ -34,6 +33,7 @@ const authController = () => ({
     try {
       const { email, password } = req.body;
       const user = await userModel.findOne({ email });
+      
       if (!user) {
         return res
           .status(EHttpStatusCode.NOT_FOUND)
@@ -45,6 +45,7 @@ const authController = () => ({
             .status(EHttpStatusCode.UNAUTHORIZED)
             .json({ message: "Unauthorized, Re-Login!" });
         } else {
+           console.log(user);
           const accessToken = jwt.sign(
             { id: user._id },
             process.env.SECRET_KEY,
@@ -53,7 +54,7 @@ const authController = () => ({
             }
           );
           console.log(`Access Token ${accessToken}`);
-
+         
           const refreshToken = jwt.sign(
             { id: user._id },
             process.env.SECRET_KEY
@@ -115,7 +116,8 @@ const authController = () => ({
       message: "User Logged Out!",
       token,
     });
+},
 }
-})
+
 
 export default authController;
