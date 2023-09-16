@@ -4,9 +4,10 @@ import { orderValidator } from "../validator/OrderValidation.js";
 
 const router = express.Router();
 
-router.post("/order/create", orderValidator.create, orderController.createOrder);
-router.put("/order/update/:id", orderValidator.update, orderController.updateOrder);
-router.get("/order/getAll/:id", orderController.getAllOrder);
+router.post("/order", orderValidator.create, orderController.createOrder);
+router.put("/order/:id", orderValidator.update, orderController.updateOrder);
+router.get("/orders", orderController.getAllOrder);
+router.get("/order/:id", orderController.getSingleOrder);
 router.delete("/delete/:id", orderController.deleteOrder);
 
 export const orderRouter = router;

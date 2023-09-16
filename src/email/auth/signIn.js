@@ -1,4 +1,4 @@
-import Transport from "../../config/nodemailer";
+import Transport from "../../config/nodemailer.js";
 
 const signInMail = (name, email) => {
   let mailOptions = {
