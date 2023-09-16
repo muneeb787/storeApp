@@ -42,7 +42,7 @@ const authController = {
     try {
       const { email, password } = req.body;
       const user = await userModel.findOne({ email });
-      console.log(`User Credential for login: ${user}`);
+      
       if (!user) {
         return res
           .status(EHttpStatusCode.NOT_FOUND)

@@ -30,15 +30,13 @@ const UserController = {
   },
 
   getAll: async (req, res) => {
-    // const users = await userModel.find();
-    // return res.json(users);
     const { page = 1, limit = 5 } = req.query;
   
     try {
       const users = await userModel.find().limit(limit * 1).skip((page - 1) * limit).exec(); 
       const count = await userModel.countDocuments();
       const totalPages = Math.ceil(count / limit);
-      res.json({users,totalPages, currentPage: page});
+      res.status(EHttpStatusCode.SUCCESS).json({users,totalPages, currentPage: page});
     } catch (err) {
       console.error(err.message);
     }
@@ -50,23 +48,16 @@ const UserController = {
     if (!user) {
       return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "User not found" });
     }
-    return res.json(user);
+    return res.status(EHttpStatusCode.SUCCESS).json(user);
   },
 
   create: async (req, res) => {
     const user=req.body;
     const Password= await bcryptjs.hash(user.password,12);
     user.password=Password
-    console.log(user.password);
-    if (user.role=="user")
-    {
     const User = await userModel.create(user);
-    return res.json({ message: "User created successfully", User });
-    }
-    else{
-      const Admin=await userModel.create(user);
-      return res.json({message:"Admin created successfully", Admin});
-    }
+    return res.status(EHttpStatusCode.CREATED).json({ message: "User created successfully", User });
+   
   },
 
   update: async (req, res) => {
@@ -74,7 +65,7 @@ const UserController = {
     const id = req.params.id;
     const user = await userModel.findById(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "User not found" });
     }
     user.name = body.name;
     user.email = body.email;
@@ -85,17 +76,17 @@ const UserController = {
     user.address.postal_code=user.address.postal_code;
     user.number=body.number;
     await user.save();
-    return res.status(200).json({ message: "User Updated successfully", user });
+    return res.status(EHttpStatusCode.SUCCESS).json({ message: "User Updated successfully", user });
   },
 
   delete: async (req, res) => {
     const id=req.params.id;
     const user = await userModel.findById(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "User not found" });
     }
     const Delete=await userModel.deleteOne({_id: id});
-    return res.json({ message: "user deleted successfully",Delete });
+    return res.status(EHttpStatusCode.SUCCESS).json({ message: "user deleted successfully",Delete });
   },
   
 };

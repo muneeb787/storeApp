@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema(
     address: {
       house:{
         type:"string",
-
       },
       street: {
         type: "string",
@@ -40,7 +39,6 @@ const userSchema = new mongoose.Schema(
     },
     number: {
       type: "number",
-
     },
   },
   {
