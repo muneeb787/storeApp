@@ -24,7 +24,9 @@ export const orderController = {
     try {
       const orderId = req.params.id;
       const data = req.body;
-      const updatedOrder = await Order.findByIdAndUpdate(orderId, data, {new: true});
+      const updatedOrder = await Order.findByIdAndUpdate(orderId, data, {
+        new: true,
+      });
       if (!updatedOrder) {
         res.status(404).json({ message: "Order not Found" });
       }
@@ -37,11 +39,25 @@ export const orderController = {
     }
   },
 
-  getAllOrder: async (req, res) => {
+  getSingleOrder: async (req, res) => {
     try {
       const { id } = req.params;
       // const orderId = req.params.Id;
-      const getAllOrder = await Order.findById(id);
+      const getSingleOrder = await Order.findById(id);
+      if (!getSingleOrder) {
+        res.status(404).json({ message: "Order not Found" });
+      }
+      res
+        .status(200)
+        .json({ message: "Order got successfully", getSingleOrder });
+    } catch (error) {
+      console.error("Error fetching orders", error);
+      res.status(500).json({ message: "Failed to fetch order" });
+    }
+  },
+  getAllOrder: async (req, res) => {
+    try {
+      const getAllOrder = await Order.find();
       if (!getAllOrder) {
         res.status(404).json({ message: "Order not Found" });
       }
