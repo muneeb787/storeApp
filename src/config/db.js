@@ -1,17 +1,15 @@
 import mongoose from "mongoose";
-// import env from "dotenv"
-// env.config();
 
 const connectDB = () => {
     const uri = process.env.MONGODB_CONNECTION_URI;
-    console.log(uri)
+    // console.log(uri)
     mongoose.connect(uri,{
         autoCreate: true,
         autoIndex: true
     }).then((res)=>{
         console.log("DB Connected Successfully")
     }).catch((err)=>{
-        console.log("DB Connection Error");
+        console.log("Alas! DB Connection Error");
     })
 }
 
