@@ -1,6 +1,6 @@
 import EHttpStatusCode from "../enums/HttpStatusCode.js";
 
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken"
 
 import env from "dotenv";
 env.config();
