@@ -48,7 +48,8 @@ const authController = {
           .status(EHttpStatusCode.NOT_FOUND)
           .json({ message: "User Not Found!" });
       } else {
-        const isValidPassword = bcrypt.compare(password, user.password);
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        console.log(isValidPassword)
         if (!isValidPassword) {
           return res
             .status(EHttpStatusCode.BAD_REQUEST)

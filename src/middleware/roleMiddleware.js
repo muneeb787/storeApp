@@ -11,7 +11,8 @@ const roleMiddleware = (req, res, next) => {
       return res
         .status(EHttpStatusCode.FORBIDDEN)
         .json({ message: "Access Forbidden!" });
-    } else next();
+    }
+    next();
   } catch (error) {
     console.log(error);
     return res

@@ -10,6 +10,6 @@ userRouter.put("/user/:id", userValidator.update, UserController.update);
 userRouter.delete("/user/:id", UserController.delete);
 userRouter.get("/user/:id", UserController.getSingle);
 userRouter.post("/user/searchAllUser", UserController.searchAlluser);
-userRouter.get("/users", UserController.getAll);
+userRouter.get("/users", authMiddleware , roleMiddleware , UserController.getAll);
 
 export default userRouter;
