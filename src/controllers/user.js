@@ -53,7 +53,7 @@ const UserController = {
     return res.json(user);
   },
 
-  signup: async (req, res) => {
+  create: async (req, res) => {
     const user=req.body;
     const Password= await bcryptjs.hash(user.password,12);
     user.password=Password
