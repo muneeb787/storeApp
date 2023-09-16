@@ -6,14 +6,27 @@ import signInMail from "../email/auth/signIn.js";
 const jwt = require("jsonwebtoken");
 
 const refreshTokens = [];
+
 const authController = () => ({
   //Handler Function to Register
   Register: async (req, res) => {
     try {
+      //Verifying if the user already exits
+      if (
+        (user.userName && user.email) === userModel.findOne({ userName, email })
+      ) {
+        res.status(EHttpStatusCode.BAD_REQUEST).json({
+          message: `Already Registered User Email: ${user.email}`,
+        });
+      } else {
+        res
+          .status(EHttpStatusCode.SUCCESS)
+          .json({ message: `New User: ${user.email}` });
+      }
       const user = new userModel({
         userName: req.body.name,
         email: req.body.email,
-        password: bycrypt.hashSync(req.body.password, 10),
+        password: bycrypt.hashSync(req.body.password, 12),
         role: req.body.role,
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
