@@ -16,33 +16,33 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: "string",
-      required: true,
+      default: "user"
     },
     address: {
       house:{
         type:"string",
-        required:true,
+
       },
       street: {
         type: "string",
-        required: true,
+
       },
       city: {
         type: "string",
-        required: true,
+
       },
       country:{
         type:"string",
-        required:true,
+
       },
       postal_code:{
         type:"number",
-        required:true,
+
       }
     },
     number: {
       type: "number",
-      required: true,
+
     },
   },
   {
@@ -50,6 +50,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const userModel = mongoose.model("user", userSchema);
+const userModel = mongoose.model("users", userSchema);
 
 export default userModel;
