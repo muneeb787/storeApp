@@ -3,8 +3,6 @@ import userRouter from "./user.js";
 import authRouter from "./auth.js";
 import orderRouter from "./orders.js";
 import productRouter from "./product.js";
-import { orderRouter } from "./orders.js";
-import authRouter from "./auth.js";
 
 const mainRouter = new Router();
 
