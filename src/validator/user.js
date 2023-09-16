@@ -1,7 +1,7 @@
 import joi from "joi";
 
 const userValidator = {
-  register: (req, res, next) => {
+  Register: (req, res, next) => {
     const schema = joi.object({
       name: joi.string().min(3).max(40).required(),
       email: joi.string().email().required(),

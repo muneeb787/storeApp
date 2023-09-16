@@ -4,18 +4,17 @@ const productValidator = {
   create: (req, res, next) => {
     const schema = joi.object({
       name: joi.string().min(3).max(40).required(),
-     price:joi.number().max(100000).required(), 
-     description: joi.string().min(5).max(500).required(),
+      price: joi.number().max(100000).required(),
+      description: joi.string().min(5).max(500).required(),
       reviews: joi.array().items({
-        user_id:joi.string().required(),
-        comment_text:joi.string().required().min(5).max(200)
+        user_id: joi.string().required(),
+        comment_text: joi.string().required().min(5).max(200),
       }),
       rating: joi.array().items({
-        user_id:joi.string().required(),
-        points:joi.string().required(),
+        user_id: joi.string().required(),
+        points: joi.string().required(),
       }),
-      category_id:joi.string().required(),
-
+      category_id: joi.string().required(),
     });
     const validate = schema.validate(req.body);
     // console.log(validate);
@@ -29,18 +28,18 @@ const productValidator = {
 
   update: (req, res, next) => {
     const schema = joi.object({
-        name: joi.string().min(3).max(40).required(),
-        price:joi.number().max(100000).required(),
-        description: joi.string().min(5).max(500).required(),
-        reviews: joi.array().items({
-          user_id:joi.string().required(),
-          comment_text:joi.string().required().min(5).max(200)
-        }),
-        rating: joi.array().items({
-          user_id:joi.string().required(),
-          points:joi.string().required(),
-        }),
-        category_id:joi.string().required(),
+      name: joi.string().min(3).max(40).required(),
+      price: joi.number().max(100000).required(),
+      description: joi.string().min(5).max(500).required(),
+      reviews: joi.array().items({
+        user_id: joi.string().required(),
+        comment_text: joi.string().required().min(5).max(200),
+      }),
+      rating: joi.array().items({
+        user_id: joi.string().required(),
+        points: joi.string().required(),
+      }),
+      category_id: joi.string().required(),
     });
     const validate = schema.validate(req.body);
     // console.log(validate);

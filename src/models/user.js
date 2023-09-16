@@ -16,33 +16,26 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: "string",
-      
     },
     address: {
       house:{
         type:"string",
-        
       },
       street: {
         type: "string",
-        
       },
       city: {
         type: "string",
-        
       },
       country:{
         type:"string",
-        
       },
       postal_code:{
         type:"number",
-       
       }
     },
     number: {
       type: "number",
-     
     },
   },
   {
