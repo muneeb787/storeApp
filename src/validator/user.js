@@ -1,6 +1,6 @@
 import joi from "joi";
 
-const uservalidator = {
+const userValidator = {
   register: (req, res, next) => {
     const schema = joi.object({
       name: joi.string().min(3).max(40).required(),
@@ -65,4 +65,4 @@ const uservalidator = {
     next();
   },
 };
-export default uservalidator;
+export default userValidator;
