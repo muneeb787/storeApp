@@ -17,11 +17,12 @@ const userSchema = new mongoose.Schema(
     role: {
       type: "string",
       required: true,
+      default: "user"
     },
     address: {
-      house:{
-        type:"string",
-        required:true,
+      house: {
+        type: "string",
+        required: true,
       },
       street: {
         type: "string",
@@ -31,13 +32,13 @@ const userSchema = new mongoose.Schema(
         type: "string",
         required: true,
       },
-      country:{
-        type:"string",
-        required:true,
+      country: {
+        type: "string",
+        required: true,
       },
-      postal_code:{
-        type:"number",
-        required:true,
+      postal_code: {
+        type: "number",
+        required: true,
       }
     },
     number: {

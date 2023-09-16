@@ -7,6 +7,7 @@ authRouter.post("/login",authController.Login);
 authRouter.post("/token",authController.Token);
 authRouter.post("/logout",authController.Logout);
 
+
 export default authRouter;
 
 // Refresh Token and Logout token helpful article
