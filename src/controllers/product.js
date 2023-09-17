@@ -1,4 +1,5 @@
 import productModel from "../models/products.js";
+import EHttpStatusCode from "../enums/HttpStatusCode.js";
 
 const productController = {
   getAll: async (req, res) => {
@@ -35,19 +36,19 @@ const productController = {
       return res.status(500).json({ message: "Error creating product" });
     }
   },
+
   update: async (req, res) => {
-    const { id } = req.params;
-    try {
-      const product = await productModel.findByIdAndUpdate(id, req.body, { new: true });
-      if (product) {
-        console.log("Status Updated");
-        return res.json(product);
-      } else {
-        return res.status(404).json({ message: `Product with ID '${id}' not found.` });
-      }
-    } catch (error) {
-      return res.status(500).json({ message: "Error updating product" });
+    const body = req.body;
+    const id = req.params.id;
+    const product = await productModel.findById(id);
+    if (!product) {
+      return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "Product not found" });
     }
+    product.name = body.name;
+    product.price = body.price;
+    product.description=body.description;
+    await product.save();
+    return res.status(EHttpStatusCode.SUCCESS).json({ message: "Product Updated successfully", product });
   },
 
   delete: async (req, res) => {
