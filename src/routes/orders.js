@@ -8,6 +8,6 @@ orderRouter.post("/order", orderValidator.create, orderController.createOrder);
 orderRouter.put("/order/:id", orderValidator.update, orderController.updateOrder);
 orderRouter.get("/orders", orderController.getAllOrder);
 orderRouter.get("/order/:id", orderController.getSingleOrder);
-orderRouter.delete("/delete/:id", orderController.deleteOrder);
+orderRouter.get("/delete/:id", orderController.deleteOrder);
 
 export default orderRouter;

@@ -49,6 +49,17 @@ const productController = {
       return res.status(500).json({ message: "Error updating product" });
     }
   },
+
+  delete: async (req, res) => {
+    const id=req.params.id;
+    const product = await categoryModel.findById(id);
+    if (!product) {
+      return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "Product not found" });
+    }
+    const Product=await productModel.deleteOne({_id: id});
+    return res.status(EHttpStatusCode.SUCCESS).json({ message: "product deleted successfully",Product });
+  },
+
 };
 
 export default productController;
