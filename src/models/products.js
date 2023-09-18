@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema({
       },
       comment_text: {
         type: String,
-        required: true,
+        
       },
       DateTime: {
         type: Date,
@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
       points: {
         type: Number,
         default: 1.0,
-        required: true,
+        
       },
       DateTime: {
         type: Date,
