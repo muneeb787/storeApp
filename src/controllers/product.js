@@ -14,6 +14,18 @@ const productController = {
       return res.status(500).json({ message: "Error fetching data" });
     }
   },
+  getAllpages: async (req, res) => {
+    const { pagesize, limit } = req.query;
+  
+    try {
+      const products = await userModel.find().limit(limit * 1).skip((pagesize - 1) * limit).exec(); 
+      const count = await userModel.countDocuments();
+      const totalPages = Math.ceil(count / limit);
+      res.status(EHttpStatusCode.SUCCESS).json({products,totalPages, currentPage: page});
+    } catch (err) {
+      console.error(err.message);
+    }
+  },
   getSingle: async (req, res) => {
     const id = req.params.id; 
     try {
