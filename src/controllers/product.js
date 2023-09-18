@@ -14,20 +14,81 @@ const productController = {
       return res.status(500).json({ message: "Error fetching data" });
     }
   },
-  getAllpages: async (req, res) => {
-    const { pagesize, limit } = req.query;
-  
+  getAllByCategory: async (req, res) => {
     try {
-      const products = await userModel.find().limit(limit * 1).skip((pagesize - 1) * limit).exec(); 
-      const count = await userModel.countDocuments();
-      const totalPages = Math.ceil(count / limit);
-      res.status(EHttpStatusCode.SUCCESS).json({products,totalPages, currentPage: page});
-    } catch (err) {
-      console.error(err.message);
+      const {category } = req.params;
+      const products = await productModel.find({catagory_id: category});
+      if (products.length > 0) {
+        const count = products.length;
+        return res.json({products , count});
+      } else {
+        return res.status(404).json({ message: "No data" });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: "Error fetching data" });
     }
   },
+  getAllpages: async (req, res) => {
+    const { page, limit } = req.params; // Change "pagesize" to "page"
+
+    try {
+      const currentPage = parseInt(page) || 1; // Parse the page query parameter
+
+      const skip = (currentPage - 1) * limit; // Calculate the number of documents to skip
+
+      const products = await productModel
+        .find()
+        .limit(parseInt(limit))
+        .skip(skip)
+        .exec();
+
+        console.log(products)
+
+      const count = await productModel.countDocuments();
+      const totalPages = Math.ceil(count / parseInt(limit));
+
+      res.status(EHttpStatusCode.SUCCESS).json({
+        products,
+        totalPages,
+        currentPage,
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(EHttpStatusCode.ERROR).json({ error: err.message });
+    }
+  },
+  getAllByCategoryPages: async (req, res) => {
+    const { category , page, limit } = req.params; // Change "pagesize" to "page"
+
+    try {
+      const currentPage = parseInt(page) || 1; // Parse the page query parameter
+
+      const skip = (currentPage - 1) * limit; // Calculate the number of documents to skip
+
+      const products = await productModel
+        .find({catagory_id: category})
+        .limit(parseInt(limit))
+        .skip(skip)
+        .exec();
+
+        console.log(products)
+
+      const count = await productModel.countDocuments();
+      const totalPages = Math.ceil(count / parseInt(limit));
+
+      res.status(EHttpStatusCode.SUCCESS).json({
+        products,
+        totalPages,
+        currentPage,
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(EHttpStatusCode.ERROR).json({ error: err.message });
+    }
+  },
+
   getSingle: async (req, res) => {
-    const id = req.params.id; 
+    const id = req.params.id;
     try {
       const product = await productModel.findById(id);
       if (product) {
@@ -42,8 +103,8 @@ const productController = {
   create: async (req, res) => {
     const body = req.body;
     const file = req.file;
-    console.log(body,"body")
-    console.log(file,"file")
+    console.log(body, "body")
+    console.log(file, "file")
     try {
       const product = await productModel.create({
         name: body.name,
@@ -67,19 +128,19 @@ const productController = {
     }
     product.name = body.name;
     product.price = body.price;
-    product.description=body.description;
+    product.description = body.description;
     await product.save();
     return res.status(EHttpStatusCode.SUCCESS).json({ message: "Product Updated successfully", product });
   },
 
   delete: async (req, res) => {
-    const id=req.params.id;
-    const product = await categoryModel.findById(id);
+    const id = req.params.id;
+    const product = await productModel.findById(id);
     if (!product) {
       return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "Product not found" });
     }
-    const Product=await productModel.deleteOne({_id: id});
-    return res.status(EHttpStatusCode.SUCCESS).json({ message: "product deleted successfully",Product });
+    const Product = await productModel.deleteOne({ _id: id });
+    return res.status(EHttpStatusCode.SUCCESS).json({ message: "product deleted successfully", Product });
   },
 
 };
