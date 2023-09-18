@@ -16,10 +16,15 @@ app.use(express.urlencoded({ extended: true }));
 connectDB();
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  methods: 'GET,PUT,PATCH,POST,DELETE',
-  credentials: true, // If you need to include cookies in the request
+  origin: 'http://localhost:5173', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 204,
 };
+// const corsOptions = {
+//   origin: 'http://localhost:5173',
+//   methods: 'GET,PUT,PATCH,POST,DELETE',
+//   credentials: true, // If you need to include cookies in the request
+// };
 
 app.use(cors(corsOptions));
 

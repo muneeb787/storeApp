@@ -28,11 +28,7 @@ create: async (req, res) => {
 
   delete: async (req, res) => {
     const id=req.params.id;
-    const category = await categoryModel.findById(id);
-    if (!category) {
-      return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "Category not found" });
-    }
-    const Category=await categoryModel.deleteOne({_id: id});
+    const Category=await categoryModel.findOneAndDelete({_id: id});
     return res.status(EHttpStatusCode.SUCCESS).json({ message: "Category deleted successfully",Category });
   },
 
