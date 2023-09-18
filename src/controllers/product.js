@@ -28,8 +28,17 @@ const productController = {
   },
   create: async (req, res) => {
     const body = req.body;
+    const file = req.file;
+    console.log(body,"body")
+    console.log(file,"file")
     try {
-      const product = await productModel.create(body);
+      const product = await productModel.create({
+        name: body.name,
+        description: body.description,
+        price: body.price,
+        catagory_id: body.catagory_id,
+        image: file.filename
+      });
       return res.json({ message: "Product Created", product });
     } catch (error) {
       return res.status(500).json({ message: "Error creating product" });

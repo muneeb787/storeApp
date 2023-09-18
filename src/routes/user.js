@@ -5,11 +5,11 @@ import authMiddleware from "../middleware/authMiddleware.js";
 import roleMiddleware from "../middleware/roleMiddleware.js";
 
 const userRouter = new Router();
-userRouter.post("/user", authMiddleware , roleMiddleware, userValidator.create, UserController.create);
+userRouter.post("/user", userValidator.create, UserController.create);
 userRouter.put("/user/:id", authMiddleware , roleMiddleware, userValidator.update, UserController.update);
 userRouter.delete("/user/:id", authMiddleware , roleMiddleware, UserController.delete);
 userRouter.get("/user/:id", authMiddleware , roleMiddleware, UserController.getSingle);
 userRouter.post("/user/searchAllUser", authMiddleware , roleMiddleware, UserController.searchAlluser);
-userRouter.get("/users", authMiddleware , roleMiddleware , UserController.getAll);
+userRouter.get("/users", UserController.getAll);
 
 export default userRouter;

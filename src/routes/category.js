@@ -4,8 +4,8 @@ import categoryValidator from "../validator/category.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
 const categoryRouter = new Router();
-categoryRouter.post("/category",authMiddleware, categoryValidator.create, categoryController.create);
+categoryRouter.post("/category", categoryValidator.create, categoryController.create);
 categoryRouter.get("/category/:id",authMiddleware, categoryController.delete);
-categoryRouter.get("/category" ,authMiddleware, categoryController.getAll);
+categoryRouter.get("/category", categoryController.getAll);
 
 export default categoryRouter;
