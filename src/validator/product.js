@@ -2,6 +2,7 @@ import joi from "joi";
 
 const productValidator = {
   create: (req, res, next) => {
+    console.log(req.body,"called")
     const schema = joi.object({
       name: joi.string().min(3).max(40).required(),
       price: joi.number().max(100000).required(),
@@ -14,7 +15,7 @@ const productValidator = {
         user_id: joi.string().required(),
         points: joi.string().required(),
       }),
-      category_id: joi.string().required(),
+      catagory_id: joi.string().required(),
     });
     const validate = schema.validate(req.body);
     // console.log(validate);
