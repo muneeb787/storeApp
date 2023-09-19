@@ -42,7 +42,12 @@ const productController = {
   create: async (req, res) => {
     const body = req.body;
     try {
-      const product = await productModel.create(body);
+      const product = await productModel.create({
+        name:body.name,
+        price:body.price,
+        description:body.description,
+        category_id:body.category_id,
+      });
       return res.json({ message: "Product Created", product });
     } catch (error) {
       return res.status(500).json({ message: "Error creating product" });
@@ -59,6 +64,7 @@ const productController = {
     product.name = body.name;
     product.price = body.price;
     product.description=body.description;
+    product.category_id=body.category_id
     await product.save();
     return res.status(EHttpStatusCode.SUCCESS).json({ message: "Product Updated successfully", product });
   },
