@@ -5,10 +5,10 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const orderRouter = new Router();
 
-orderRouter.post("/order", authMiddleware , orderController.createOrder);
-orderRouter.put("/order/:id", orderValidator.update, orderController.updateOrder);
-orderRouter.get("/orders", orderController.getAllOrder);
-orderRouter.get("/order/:id", orderController.getSingleOrder);
-orderRouter.get("/delete/:id", orderController.deleteOrder);
+orderRouter.post("/order", authMiddleware, orderValidator.create, orderController.createOrder);
+orderRouter.put("/order/:id",authMiddleware, orderValidator.update, orderController.updateOrder);
+orderRouter.get("/orders",authMiddleware, orderController.getAllOrder);
+orderRouter.get("/order/:id",authMiddleware, orderController.getSingleOrder);
+orderRouter.get("/delete/:id",authMiddleware, orderController.deleteOrder);
 
 export default orderRouter;
