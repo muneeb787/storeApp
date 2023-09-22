@@ -4,6 +4,7 @@ import userValidator from "../validator/user.js";
 const authRouter = new Router();
 authRouter.post("/register", userValidator.Register,authController.Register);
 authRouter.post("/login",authController.Login);
+authRouter.post("/adminLogin",authController.AdminLogin)
 authRouter.post("/token",authController.Token);
 authRouter.post("/logout",authController.Logout);
 
