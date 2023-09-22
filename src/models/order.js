@@ -29,7 +29,12 @@ const orderSchema = new mongoose.Schema(
         type: Date,
         default: Date.now,
     },
-    // totalPrice: Number,
+    total_price:{
+      type:Number,
+      required:true,
+      default:null,
+    },
+   
     status: {
       type: String,
       enum: ["pending", "shipped", "deliverd", "cancelled"],
@@ -57,18 +62,8 @@ const orderSchema = new mongoose.Schema(
           required:true,
         },
     },
-    // billing_info: {
-    //     payment_method: String,
-    //     credit_card_last4: String,
-    //     billing_address: {
-    //         street: String,
-    //         city: String,
-    //         state: String,
-    //         postal_code: String,
-    //         country: String,
-    //     },
-    // },
   },
+
 
   {
     timestamps: {
