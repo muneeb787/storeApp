@@ -1,4 +1,5 @@
 import joi from "joi";
+import EHttpStatusCode from "../enums/HttpStatusCode.js"
 
 const userValidator = {
   Register: (req, res, next) => {
@@ -8,10 +9,9 @@ const userValidator = {
       password: joi.string().min(6).required(),
     });
     const validate = schema.validate(req.body);
-    // console.log(validate);
     if (validate.error) {
       return res
-        .status(400)
+        .status(EHttpStatusCode.BAD_REQUEST)
         .json({ message: validate.error.details[0].message });
     }
     next();
@@ -33,10 +33,10 @@ const userValidator = {
       number: joi.string().length(11).pattern(/^[0-9]+$/).required(),
     });
     const validate = schema.validate(req.body);
-    // console.log(validate);
+    
     if (validate.error) {
       return res
-        .status(400)
+        .status(EHttpStatusCode.BAD_REQUEST)
         .json({ message: validate.error.details[0].message });
     }
     next();
@@ -56,10 +56,9 @@ const userValidator = {
       number: joi.string().length(11).pattern(/^[0-9]+$/).required(),
     });
     const validate = schema.validate(req.body);
-    // console.log(validate);
     if (validate.error) {
       return res
-        .status(400)
+        .status(EHttpStatusCode.BAD_REQUEST)
         .json({ message: validate.error.details[0].message });
     }
     next();

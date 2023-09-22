@@ -23,7 +23,7 @@ const UserController = {
       });
   
       const totalPages = Math.ceil(count / limit);
-      return res.json({usersearch,totalPages,currentPage: page});
+      return res.status(EHttpStatusCode.SUCCESS).json({usersearch,totalPages,currentPage: page});
     } catch (error) {
       console.error(error);
     }
@@ -86,7 +86,7 @@ const UserController = {
       return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "User not found" });
     }
     const Delete=await userModel.deleteOne({_id: id});
-    return res.status(EHttpStatusCode.SUCCESS).json({ message: "user deleted successfully",Delete });
+    return res.status(EHttpStatusCode.NO_CONTENT).json({ message: "user deleted successfully",Delete });
   },
   
 };

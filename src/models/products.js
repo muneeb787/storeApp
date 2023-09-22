@@ -49,10 +49,10 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-  catagory_id: {
+  category_id: {
     type: mongoose.Schema.ObjectId,
     default: null,
-    ref: "catagory",
+    ref: "category",
   },
 }, {
   timestamps: true,

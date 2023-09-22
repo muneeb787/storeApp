@@ -1,4 +1,5 @@
 import joi from "joi";
+import EHttpStatusCode from "../enums/HttpStatusCode.js";
 
 const productValidator = {
   create: (req, res, next) => {
@@ -18,10 +19,9 @@ const productValidator = {
       catagory_id: joi.string().required(),
     });
     const validate = schema.validate(req.body);
-    // console.log(validate);
     if (validate.error) {
       return res
-        .status(400)
+        .status(EHttpStatusCode.BAD_REQUEST)
         .json({ message: validate.error.details[0].message });
     }
     next();
@@ -43,10 +43,9 @@ const productValidator = {
       category_id: joi.string().required(),
     });
     const validate = schema.validate(req.body);
-    // console.log(validate);
     if (validate.error) {
       return res
-        .status(400)
+        .status(EHttpStatusCode.BAD_REQUEST)
         .json({ message: validate.error.details[0].message });
     }
     next();

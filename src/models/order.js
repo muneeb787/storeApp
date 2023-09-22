@@ -26,33 +26,44 @@ const orderSchema = new mongoose.Schema(
       },
     ],
     transaction_id: {
-      type: String,
+        type: Date,
+        default: Date.now,
     },
-    totalPrice: Number,
+    total_price:{
+      type:Number,
+      required:true,
+      default:null,
+    },
+   
     status: {
       type: String,
       enum: ["pending", "shipped", "deliverd", "cancelled"],
       default: "pending",
     },
-    // shipping_address: {
-    //     street: String,
-    //     city: String,
-    //     state: String,
-    //     postal_code: String,
-    //     country: String,
-    // },
-    // billing_info: {
-    //     payment_method: String,
-    //     credit_card_last4: String,
-    //     billing_address: {
-    //         street: String,
-    //         city: String,
-    //         state: String,
-    //         postal_code: String,
-    //         country: String,
-    //     },
-    // },
+    shipping_address: {
+        street: {
+          type:String,
+          required:true,
+        },
+        city: {
+          type:String,
+          required:true,
+        },
+        state: {
+          type:String,
+          required:true,
+        },
+        postal_code: {
+          type:String,
+          required:true,
+        },
+        country: {
+          type:String,
+          required:true,
+        },
+    },
   },
+
 
   {
     timestamps: {
