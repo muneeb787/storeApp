@@ -29,7 +29,11 @@ create: async (req, res) => {
   delete: async (req, res) => {
     const id=req.params.id;
     const Category=await categoryModel.findOneAndDelete({_id: id});
-    return res.status(EHttpStatusCode.SUCCESS).json({ message: "Category deleted successfully",Category });
+    if (!Category)
+    {
+      return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "Category not found",Category });
+    }
+    return res.status(EHttpStatusCode.NO_CONTENT).json({ message: "Category deleted successfully",Category });
   },
 
 }

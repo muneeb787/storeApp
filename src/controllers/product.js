@@ -2,18 +2,20 @@ import productModel from "../models/products.js";
 import EHttpStatusCode from "../enums/HttpStatusCode.js";
 
 const productController = {
+
   getAll: async (req, res) => {
     try {
       const products = await productModel.find();
       if (products.length > 0) {
         return res.json(products);
       } else {
-        return res.status(404).json({ message: "No data" });
+        return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "No data" });
       }
     } catch (error) {
-      return res.status(500).json({ message: "Error fetching data" });
+      return res.status(EHttpStatusCode.INTERNAL_SERVER).json({ message: "Error fetching data" });
     }
   },
+
   getAllByCategory: async (req, res) => {
     try {
       const {category } = req.params;
@@ -22,15 +24,15 @@ const productController = {
         const count = products.length;
         return res.json({products , count});
       } else {
-        return res.status(404).json({ message: "No data" });
+        return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "No data" });
       }
     } catch (error) {
-      return res.status(500).json({ message: "Error fetching data" });
+      return res.status(EHttpStatusCode.INTERNAL_SERVER).json({ message: "Error fetching data" });
     }
   },
+  
   getAllpages: async (req, res) => {
     const { page, limit } = req.params; // Change "pagesize" to "page"
-
     try {
       const currentPage = parseInt(page) || 1; // Parse the page query parameter
 
@@ -82,8 +84,7 @@ const productController = {
         currentPage,
       });
     } catch (err) {
-      console.error(err.message);
-      res.status(EHttpStatusCode.ERROR).json({ error: err.message });
+      res.status(EHttpStatusCode.INTERNAL_SERVER).json({message: "Error fetching data"});
     }
   },
 
@@ -94,10 +95,10 @@ const productController = {
       if (product) {
         return res.json(product);
       } else {
-        return res.status(404).json({ message: "No Data Found" });
+        return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "No Data Found" });
       }
     } catch (error) {
-      return res.status(500).json({ message: "Error fetching data" });
+      return res.status(EHttpStatusCode.INTERNAL_SERVER).json({ message: "Error fetching data" });
     }
   },
   create: async (req, res) => {
@@ -113,9 +114,9 @@ const productController = {
         catagory_id: body.catagory_id,
         image: file.filename
       });
-      return res.json({ message: "Product Created", product });
+      return res.status(EHttpStatusCode.CREATED).json({ message: "Product Created", product });
     } catch (error) {
-      return res.status(500).json({ message: "Error creating product" });
+      return res.status(EHttpStatusCode.INTERNAL_SERVER).json({ message: "Error creating product" });
     }
   },
 
@@ -130,7 +131,7 @@ const productController = {
     product.price = body.price;
     product.description = body.description;
     await product.save();
-    return res.status(EHttpStatusCode.SUCCESS).json({ message: "Product Updated successfully", product });
+    return res.status(EHttpStatusCode.SUCCESS).json({ message: "Product updated successfully", product });
   },
 
   delete: async (req, res) => {
@@ -140,7 +141,7 @@ const productController = {
       return res.status(EHttpStatusCode.NOT_FOUND).json({ message: "Product not found" });
     }
     const Product = await productModel.deleteOne({ _id: id });
-    return res.status(EHttpStatusCode.SUCCESS).json({ message: "product deleted successfully", Product });
+    return res.status(EHttpStatusCode.NO_CONTENT).json({ message: "Product deleted successfully", Product });
   },
 
 };
