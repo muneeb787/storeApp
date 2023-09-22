@@ -88,6 +88,64 @@ const authController = {
     }
   },
 
+  AdminLogin: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await userModel.findOne({ email });
+      
+
+      if (!user) {
+        return res
+          .status(EHttpStatusCode.NOT_FOUND)
+          .json({ message: "Admin Not Found!" });
+      } 
+      else if (user.role=="admin") {
+          const isValidPassword = await bcrypt.compare(password, user.password);
+          console.log(isValidPassword)
+          if (!isValidPassword) {
+            return res
+              .status(EHttpStatusCode.BAD_REQUEST)
+              .json({ message: "Wrong Password, Enter Password Again" });
+          } else {
+            const userWithoutPassword = { ...user._doc };
+            delete userWithoutPassword.password;
+
+            const accessToken = jwt.sign(userWithoutPassword, process.env.SECRET_KEY, {
+              expiresIn: 86400, // expires in 24 hour
+            });
+            console.log(`Access Token ${accessToken}`);
+
+            // Sending an email on Successful login
+            signInMail(user.name, user.email);
+            const refreshToken = jwt.sign(
+              userWithoutPassword,
+              process.env.SECRET_KEY
+            );
+            console.log(`Refresh Token ${refreshToken}`);
+
+            refreshTokens.push(refreshToken);
+
+            return res.status(EHttpStatusCode.SUCCESS).json({
+              message: "Admin Successfully Logged In!",
+              accessToken,
+              refreshToken,
+            });
+          }
+      }
+       else {
+        return res.status(EHttpStatusCode.UNAUTHORIZED).json({
+          message: "User must be an admin",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(EHttpStatusCode.INTERNAL_SERVER)
+        .json({ message: "Internal Server Error!" });
+    }
+  },
+
+
   // Handler Function to Generate Refresh Tokens
   Token: (req, res) => {
     const { token } = req.body;
