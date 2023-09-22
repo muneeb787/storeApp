@@ -4,8 +4,12 @@ export const orderController = {
   createOrder: async (req, res) => {
     try {
       // Extract order data from request body
-      console.log(req.body);
+      const {user_id}=req.user;
+      console.log(user_id._id);
+      console.log(user_id.name);
+      // console.log(req.body);
       const data = req.body;
+      data.user_id = user_id;
 
       // create a new order
       const new_order = await Order.create(data);
