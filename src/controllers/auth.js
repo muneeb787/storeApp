@@ -59,7 +59,7 @@ const authController = {
           delete userWithoutPassword.password;
 
           const accessToken = jwt.sign(userWithoutPassword, process.env.SECRET_KEY, {
-            expiresIn: 3600, // expires in 1 hour
+            expiresIn: 86400, // expires in 24 hour
           });
           console.log(`Access Token ${accessToken}`);
 

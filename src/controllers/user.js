@@ -53,11 +53,11 @@ const UserController = {
 
   create: async (req, res) => {
     const user=req.body;
+    console.log(user , "userdata")
     const Password= await bcryptjs.hash(user.password,12);
     user.password=Password
     const User = await userModel.create(user);
     return res.status(EHttpStatusCode.CREATED).json({ message: "User created successfully", User });
-   
   },
 
   update: async (req, res) => {
