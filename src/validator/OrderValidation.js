@@ -1,5 +1,5 @@
 import Joi from "joi";
-import EHttpStatusCode from "../enums/HttpStatusCode";
+import EHttpStatusCode from "../enums/HttpStatusCode.js";
 
 // defining a schema for validation
 export const orderValidator = {
@@ -26,7 +26,7 @@ export const orderValidator = {
     }
     next();
   },
-  
+
   update: async (req, res, next) => {
     const schema = Joi.object({
       user_id: Joi.string().length(24).hex().required(),

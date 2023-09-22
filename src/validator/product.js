@@ -1,5 +1,5 @@
 import joi from "joi";
-import EHttpStatusCode from "../enums/HttpStatusCode";
+import EHttpStatusCode from "../enums/HttpStatusCode.js";
 
 const productValidator = {
   create: (req, res, next) => {
