@@ -4,7 +4,6 @@ import Joi from "joi";
 export const orderValidator = {
   create: async (req, res, next) => {
     const schema = Joi.object({
-      user_id: Joi.string().length(24).hex().required(),
       products: Joi.array()
         .items(
           Joi.object({
