@@ -14,11 +14,12 @@ export const orderValidator = {
           })
         )
         .required(),
-      transaction_id: Joi.string().required(),
+      transaction_id: Joi.string(),
       totalPrice: Joi.number().required(),
       status: Joi.string()
         .valid("pending", "shipped", "delivered", "cancelled")
         .default("pending"),
+      shipping_address: Joi.object()
     });
     const { error } = schema.validate(req.body);
     if (error) {
